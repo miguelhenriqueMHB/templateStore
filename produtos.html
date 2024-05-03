@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha Loja</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome (opcional) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+  /* Estilos personalizados */
+  /* Adicione seus próprios estilos aqui */
+
+  /* Estilo para as opções de classificação */
+  .product-options {
+    border-left: 1px solid #dee2e6;
+  }
+
+  /* Estilo para cada opção de classificação */
+  .product-option {
+    margin-bottom: 10px;
+  }
+  a{
+        color: white;
+        margin-left: 10px;
+        
+    }
+    .header{
+  border: 1px solid orangered;
+  
+}
+body{background: linear-gradient(326deg, rgba(236,237,240,1) 5%, rgba(145,98,79,1) 22%, rgba(0,0,0,1) 68%);
+   }
+   .align{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+   }
+   .margin{
+    margin-left: 40px;
+    transition: transform 250ms;
+   
+   }
+   .marginn{
+
+    transition: transform 250ms;
+   
+   }
+   .marginn:hover{
+    border: 2px solid orangered;
+    transform: scale(1.05); 
+    
+   }
+   .margin:hover{
+    background-color: orangered;
+    transform: scale(1.13); 
+   }
+   .font{
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 40px;
+    margin-top: 40px;
+
+   }
+   .fontt{
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    
+   }
+   .contato{
+    margin-bottom: 20px;
+   }
+   #searchInput{
+  border:2px solid orangered;
+}
+ .car{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+ }
+ .icon{
+  font-size: 30px;
+  color: white;
+ }
+
+
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark header" style="background-color: #696969;">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse align" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link btn  margin fontt" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn  margin fontt" href="produtos.html">Produtos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn  margin fontt" href="contato.html">Sobre Nos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container">
+      <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar produto...">
+    </div>
+  </nav>
+ 
+<!-- Conteúdo principal -->
+<div class="container mt-5">
+  <div class="car">
+    <div onclick="showCart()" class="icon"><i class="bi bi-cart-check-fill"></i></div>
+    <div id="contadorCliques" style="color: white; background-color: orangered; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 14px;">0</div>
+    </div>
+    <!-- Modal do Carrinho -->
+    <div id="cartModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog align" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Carrinho de Compras</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul id="cartItems"></ul>
+            <p>Total: R$ <span id="totalPrice">0.00</span></p>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" onclick="clearCart()">Limpar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" onclick=finalizarCompra()>Finalizar</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row">
+    <!-- Produtos -->
+    <div class="col-lg-12">
+      <div id="carrinhoVazio" style="display: none;">Carrinho vazio!</div>
+      <h2 class="mb-4  align" style="color: white;font-size: 40px; font-family: Georgia, 'Times New Roman', Times, serif;">Produtos</h2>
+      <!-- Lista de Produtos (Página 1) -->
+      <div id="page1" class="product-page">
+        <div class="row">
+          <!-- Coluna de produtos -->
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 1">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 1</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 1.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 2">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 2</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 2.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 3">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 3</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 3.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 4">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 4</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 4.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 5">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 5</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 5.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 6">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 6</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 6.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 7">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 7</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 7.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 8">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 8</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 8.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 9">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 9</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 9.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 10">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 10</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 10.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 11">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 11</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 11.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 12">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 12</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 12.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <!-- Adicione mais produtos conforme necessário -->
+        </div>
+      </div>
+      <!-- Lista de Produtos (Página 2) -->
+      <div id="page2" class="product-page" style="display: none;">
+        <!-- Aqui você coloca os 20 produtos da segunda página -->
+        <!-- Exemplo: -->
+        <div class="row">
+          <!-- Coluna de produtos -->
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 13">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 13</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 13.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 14">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 14</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 14.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 15">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 15</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 15.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 16">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 16</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 16.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 17">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 17</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 17.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 18">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 18</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 18.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 19">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 19</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 19.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 20">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 20</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 20.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 21">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 21</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 21.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 22">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 22</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 22.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 23">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 23</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 23.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 produto" data-nome="Produto 24">
+            <div class="card h-100 marginn">
+              <img class="card-img-top" src="https://via.placeholder.com/300"  alt="Produto 1">
+              <div class="card-body">
+                <h4 class="card-title">Produto 24</h4>
+                <h5>$36.99</h5>
+                <p class="card-text">Descrição do produto 24.</p>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <!-- Adicione mais produtos conforme necessário -->
+        </div>
+      </div>
+     
+    
+     
+      <!-- Paginação -->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item active" id="page1-btn"><a class="page-link" >1</a></li>
+          <li class="page-item" id="page2-btn"><a class="page-link" >2</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+    <!-- Opções de Classificação -->
+  >
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <h1 class="mb-4 font align ">Entre em Contato Conosco</h1>
+  <div class="social-icons align contato">
+      <a href="https://www.instagram.com/SEU_USUARIO_DO_INSTAGRAM" target="_blank"><i class="bi bi-whatsapp" style="color: black;"></i></a>
+      <a href="https://api.whatsapp.com/send?phone=SEU_NUMERO_DE_TELEFONE" target="_blank"><i class="bi bi-messenger" style="color: black;"></i></a>
+      <a href="https://www.facebook.com/SEU_USUARIO_DO_FACEBOOK" target="_blank"><i class="bi bi-instagram" style="color: black;"></i></a>
+  </div>
+</div>
+<!-- Rodapé -->
+<footer class="py-4 bg-dark text-white">
+  <div class="container text-center">
+    &copy; 2024 MC Technology. Todos os direitos reservados.
+  </div>
+</footer>
+
+<!-- Bootstrap JS (opcional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  
+  // Mostra a página 1 e esconde a página 2
+  document.getElementById('page1-btn').addEventListener('click', function() {
+    document.getElementById('page1').style.display = 'block';
+    document.getElementById('page2').style.display = 'none';
+    document.getElementById('page1-btn').classList.add('active');
+    document.getElementById('page2-btn').classList.remove('active');
+  });
+
+  // Mostra a página 2 e esconde a página 1
+  document.getElementById('page2-btn').addEventListener('click', function() {
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'block';
+    document.getElementById('page1-btn').classList.remove('active');
+    document.getElementById('page2-btn').classList.add('active');
+  });
+ 
+
+  document.getElementById('searchInput').addEventListener('input', function() {
+  var input = document.getElementById('searchInput');
+  var filter = input.value.trim().toUpperCase();
+  var produtos = document.querySelectorAll('.produto');
+
+  // Variável para verificar se algum produto foi encontrado
+  var algumProdutoEncontrado = false;
+
+  // Verifica se o campo de pesquisa está vazio
+  if (filter === '') {
+    // Mostra a página 1 e esconde a página 2
+    document.getElementById('page1').style.display = 'block';
+    document.getElementById('page2').style.display = 'none';
+    document.getElementById('page1-btn').classList.add('active');
+    document.getElementById('page2-btn').classList.remove('active');
+
+    // Mostra todos os produtos
+    produtos.forEach(function(produto) {
+      produto.style.display = 'block';
+    });
+
+  } else {
+    // Itera sobre todos os produtos
+    produtos.forEach(function(produto) {
+      var nome = produto.dataset.nome.toUpperCase();
+      // Verifica se o nome do produto corresponde ao texto da pesquisa
+      if (nome.includes(filter)) {
+        produto.style.display = 'block';
+        document.getElementById('page2').style.display = 'block';
+        algumProdutoEncontrado = true;
+      } else {
+        produto.style.display = 'none';
+      }
+    });
+
+    // Se nenhum produto foi encontrado, exibe todos os produtos
+    if (!algumProdutoEncontrado) {
+      produtos.forEach(function(produto) {
+        produto.style.display = 'block';
+      });
+    }
+  }
+});
+
+  // Função para filtrar produtos por classificação
+  function filterBy(classification) {
+    // Aqui você pode implementar a lógica para filtrar os produtos e exibir na tela
+    alert('Filtrar por ' + classification);
+  }
+  // Lista para armazenar os produtos selecionados
+
+  // Função para ordenar produtos por preço
+  function sortByPrice() {
+    // Aqui você pode implementar a lógica para ordenar os produtos por preço e exibir na tela
+    alert('Ordenar por preço');
+  }
+</script>
+<script>
+ let cart = [];
+
+// Função para adicionar um produto ao carrinho
+function addToCart(productName, price) {
+  cart.push({ name: productName, price: price });
+}
+
+// Função para exibir o modal do carrinho
+function showCart() {
+  // Limpa o conteúdo anterior do carrinho
+  document.getElementById('cartItems').innerHTML = '';
+
+  // Calcula o total da compra
+  let total = 0;
+  cart.forEach(item => {
+    total += item.price;
+    // Cria um item na lista do carrinho
+    let li = document.createElement('li');
+    li.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
+    document.getElementById('cartItems').appendChild(li);
+    localStorage.setItem("total", total);
+    
+  });
+  
+
+  // Atualiza o total no modal
+  document.getElementById('totalPrice').textContent = total.toFixed(2);
+
+  // Mostra o modal
+  $('#cartModal').modal('show');
+}
+function finalizarCompra() {
+if (cart.length == 0) {
+   alert("Seu carrinho está vazio!")
+} else {
+  console.log(cart)
+    window.location.href = 'pagamento.html';
+}
+}
+// Função para fechar o modal do carrinho
+function closeCart() {
+  $('#cartModal').modal('hide');
+}
+
+// Função para limpar o carrinho
+function clearCart() {
+  // Limpa a lista de produtos no carrinho
+  cart = [];
+  // Atualiza o conteúdo do modal
+  showCart();
+  contador = 0;
+  // Atualiza o conteúdo da div do contador para exibir o valor atualizado
+  document.getElementById('contadorCliques').textContent = contador;
+  // Reseta o contador
+  contadorDeCliques();
+}
+
+// Adiciona evento de clique aos botões "Comprar" dos produtos
+document.querySelectorAll('.btn.btn-primary').forEach(button => {
+  button.addEventListener('click', function() {
+    // Obtém o nome e o preço do produto
+    let productName = this.parentNode.parentNode.querySelector('.card-title').textContent;
+    let productPrice = parseFloat(this.parentNode.parentNode.querySelector('.card-title').nextElementSibling.textContent.substring(1));
+
+    // Adiciona o produto ao carrinho
+    addToCart(productName, productPrice);
+
+    // Exibe o modal do carrinho
+    
+
+    // Remove o evento de clique do botão para evitar abertura repetida do modal
+    button.removeEventListener('click');
+  });
+});
+function contadorDeCliques() {
+    // Seleciona todos os elementos com a classe '.btn.btn-primary'
+    const botoes = document.querySelectorAll('.btn.btn-primary');
+    
+    // Contador para armazenar o número de cliques
+    let contador = 0;
+
+    // Referência ao elemento que exibe o contador na tela
+    const contadorElemento = document.getElementById('contadorCliques');
+
+    // Adiciona um ouvinte de evento de clique a cada botão
+    botoes.forEach(button => {
+      button.addEventListener('click', function() {
+        contador++; // Incrementa o contador quando um botão é clicado
+        contadorElemento.textContent = contador; // Atualiza o texto do elemento para mostrar o novo contador
+      });
+    });
+  }
+  
+  
+
+  // Chama a função para começar a contar cliques
+  contadorDeCliques();
+
+// Chama a função para começar a contar cliques
+contadorDeCliques();
+</script>
+</body>
+</html>
